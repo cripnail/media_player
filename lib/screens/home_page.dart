@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 import '../widgets/custom_controls_widget.dart';
+import '../widgets/progress_slider.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -65,26 +66,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     borderRadius: BorderRadius.circular(16.0),
                     color: Colors.white.withOpacity(0.5),
                   ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
+                  child: Column(
                     children: [
-                      IconButton(
-                        onPressed: () {
-                          _controller.pause();
-                        },
-                        icon: const Icon(Icons.pause),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                            onPressed: () {
+                              _controller.pause();
+                            },
+                            icon: const Icon(Icons.pause),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              _controller.play();
+                            },
+                            icon: const Icon(Icons.play_arrow),
+                          ),
+                          const SizedBox(width: 22),
+                          CustomControlsWidget(
+                            controller: _controller,
+                            timestamps: timestamps,
+                          ),
+                        ],
                       ),
-                      IconButton(
-                        onPressed: () {
-                          _controller.play();
-                        },
-                        icon: const Icon(Icons.play_arrow),
-                      ),
-                      const SizedBox(width: 22),
-                      CustomControlsWidget(
-                        controller: _controller,
-                        timestamps: timestamps,
-                      ),
+                      Expanded(child: progressSlider()),
                     ],
                   ),
                 ),
